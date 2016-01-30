@@ -54,7 +54,7 @@
     <div class="top-menu1">
       <div class="hor-menu hor-menu-light hidden-sm hidden-xs">
         <ul class="nav navbar-nav">
-          <li class="classic-menu-dropdown <?php if($tab_id == 1): ?> active <?php endif; ?> "><a href="{{url('')}}">Students</a></li>
+          <li class="classic-menu-dropdown <?php if($tab_id == 1): ?> active <?php endif; ?> "><a href="{{url('admin/student')}}">Students</a></li>
           <li class="classic-menu-dropdown <?php if($tab_id == 2): ?> active <?php endif; ?> "><a href="{{url('')}}">Payments</a></li>
           <li class="classic-menu-dropdown <?php if($tab_id == 3): ?> active <?php endif; ?> "><a href="{{url('admin/manage')}}">Manage</a></li>
           <li class="classic-menu-dropdown <?php if($tab_id == 4): ?> active <?php endif; ?> "><a href="{{url('')}}">Student's Attendance</a></li>
