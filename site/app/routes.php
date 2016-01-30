@@ -42,7 +42,16 @@ Route::group(array("prefix"=>'admin',"before"=>'auth'),function(){
 			Route::put('/update/{id}','AdminManageController@updateCity');
 		});
 		Route::group(array("prefix"=>'centers',"before"=>'auth'),function(){
-			Route::get('/','AdminManageController@indexCenters');
+			Route::get('/','AdminManageController@indexCenter');
+			Route::get('/add','AdminManageController@addCenter');
+			Route::post('/insert','AdminManageController@insertCenter');
+			Route::delete('/delete/{id}','AdminManageController@deleteCenter');
+			Route::get('/edit/{id}','AdminManageController@editCenter');
+			Route::put('/update/{id}','AdminManageController@updateCenter');
+		});
+		
+		Route::group(array("prefix"=>'centers',"before"=>'auth'),function(){
+			Route::get('/','AdminManageController@indexCenter');
 		});
 		Route::group(array("prefix"=>'members',"before"=>'auth'),function(){
 			Route::get('/','AdminManageController@indexMembers');

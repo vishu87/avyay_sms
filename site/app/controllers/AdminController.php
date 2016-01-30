@@ -8,11 +8,13 @@ class AdminController extends BaseController {
 	protected $layout = 'layout';
 	
 	public function index(){
+		$this->layout->tab_id = 1;
 		$this->layout->sidebar = View::make('admin.sidebar',["page_id"=>4,"sub_id"=>0]);
 		$this->layout->main = View::make('admin.index');
 	}
 	public function addStudent(){
 		$city = [""=>"select"]+DB::table('city')->lists('city_name','id');
+		$this->layout->tab_id = 1;
 		$this->layout->sidebar = View::make('admin.sidebar',["page_id"=>1,"sub_id"=>0]);
 		$this->layout->main = View::make('admin.addStudent',["city"=>$city]);
 	}
