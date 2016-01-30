@@ -57,8 +57,9 @@ class AdminController extends BaseController {
 		return json_encode($data);
 	}
 	public function calDate(){
-		$dob = (Input::get('dos'));
-		return $dob;
+
+		$dos = strtotime(Input::get('dos'));
+		
 		if(Input::has('mplan')){
 			$dos = strtotime('+'.Input::get('mplan').' month',$dos);
 		}
@@ -66,7 +67,8 @@ class AdminController extends BaseController {
 			$dos = strtotime('+'.Input::get('adjust').' days',$dos);
 		}
 		$dos = $dos - 86400;
-		$data['success'] = 'true';
+
+		$data['success'] = true;
 		$data['message'] = date("d-m-Y", $dos);
 		return  json_encode($data);
 	}

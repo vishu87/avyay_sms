@@ -309,16 +309,16 @@ $(document).on("click","#calculate",function(e){
 	var mplan=$("#mplan").val();
 	var adjust=$("#adjust").val();
 	var datatosend = "dos="+dos;
-	datatosend += "$amp;mplan="+mplan;
-	datatosend += "$amp;adjust="+adjust;
-	alert(datatosend);
+	datatosend += "&mplan="+mplan;
+	datatosend += "&adjust="+adjust;
+	// alert(datatosend);
 	$.ajax({
-		type:"post",
+		type:"POST",
 		url:base_url+'/admin/student/calDate',
 		data:datatosend,
 		success : function(data){
 			data = JSON.parse(data);
-			if(data.success=='true'){
+			if(data.success){
 				$("#sub_end").val(data);
 			}
 			else{

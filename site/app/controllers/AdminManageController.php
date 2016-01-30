@@ -84,7 +84,7 @@ class AdminManageController extends BaseController {
 
 	}
 	public function addCenter(){
-		$cities =[""=>"select"] + City::lists("city_name","id");
+		$cities = [""=>"select"] + City::get_city_array();
 		return View::make('admin.manage.centers.add',["city"=>$cities]);
 	}
 	public function insertCenter(){
@@ -114,9 +114,10 @@ class AdminManageController extends BaseController {
 		return json_encode($data);
 	}
 	public function editCenter($id){
-		$city = Center::find($id);
+		$center = Center::find($id);
+		$cities = [""=>"select"] + City::get_city_array();
 		$count = Input::get('count');
-		return (View::make('admin.manage.centers.add',["center"=>$city,"count"=>$count]));
+		return (View::make('admin.manage.centers.add',["center"=>$center,"count"=>$count]));
 		
 	}
 	public function updateCenter($id){
@@ -142,7 +143,5 @@ class AdminManageController extends BaseController {
 
 
 	/********* functions For City  starts*********/
-	public function myfnc(){
-		return "dfajsdklafjdsljaljds";
-	}
+	
 }

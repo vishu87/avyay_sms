@@ -32,34 +32,7 @@ Route::group(array("prefix"=>'admin',"before"=>'auth'),function(){
 		Route::post('/getFee','AdminController@getFee');
 		Route::post('/calDate','AdminController@calDate');
 	});
-	Route::group(array("prefix"=>'manage',"before"=>'auth'),function(){
-		Route::get('/','AdminManageController@index');
-		Route::group(array("prefix"=>'cities',"before"=>'auth'),function(){
-			Route::get('/','AdminManageController@indexCity');
-			Route::get('/add','AdminManageController@addCity');
-			Route::post('/insert','AdminManageController@insertCity');
-			Route::delete('/deleteCity/{id}','AdminManageController@deleteCity');
-			Route::get('/editCity/{id}','AdminManageController@editCity');
-			Route::put('/update/{id}','AdminManageController@updateCity');
-		});
 
-		Route::group(array("prefix"=>'centers',"before"=>'auth'),function(){
-			Route::get('/','AdminManageController@indexCenter');
-			Route::get('/add','AdminManageController@addCenter');
-			Route::post('/insert','AdminManageController@insertCenter');
-			Route::delete('/delete/{id}','AdminManageController@deleteCenter');
-			Route::get('/edit/{id}','AdminManageController@editCenter');
-			Route::put('/update/{id}','AdminManageController@updateCenter');
-		});
-		
-		Route::group(array("prefix"=>'centers',"before"=>'auth'),function(){
-			Route::get('/','AdminManageController@indexCenter');
-		});
-		Route::group(array("prefix"=>'members',"before"=>'auth'),function(){
-			Route::get('/','AdminManageController@indexMembers');
-		});
-		Route::group(array("prefix"=>'groups',"before"=>'auth'),function(){
-			Route::get('/','AdminManageController@indexGroups');
-		});
-	});
 });
+
+include('routes_shubham.php');
