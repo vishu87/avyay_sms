@@ -73,6 +73,7 @@ class AdminManageController extends BaseController {
 		}
 		return json_encode($data);
 	}
+
 	/********* functions For Centers  starts*********/
 	
 	public function indexCenter(){
@@ -139,4 +140,9 @@ class AdminManageController extends BaseController {
 		return json_encode($data);
 	}
 
+
+	/********* functions For City  starts*********/
+	public function myfnc(){
+		return "dfajsdklafjdsljaljds";
+	}
 }
