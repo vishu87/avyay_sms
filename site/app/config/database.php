@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'bfc_laravel',
+			'database'  => 'sms',
 			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',
