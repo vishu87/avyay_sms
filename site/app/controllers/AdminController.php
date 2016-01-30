@@ -8,11 +8,13 @@ class AdminController extends BaseController {
 	protected $layout = 'layout';
 	
 	public function index(){
+		$this->layout->tab_id = 1;
 		$this->layout->sidebar = View::make('admin.sidebar',["page_id"=>4,"sub_id"=>0]);
 		$this->layout->main = View::make('admin.index');
 	}
 	public function addStudent(){
 		$city = [""=>"select"]+DB::table('city')->lists('city_name','id');
+		$this->layout->tab_id = 1;
 		$this->layout->sidebar = View::make('admin.sidebar',["page_id"=>1,"sub_id"=>0]);
 		$this->layout->main = View::make('admin.addStudent',["city"=>$city]);
 	}
@@ -37,7 +39,7 @@ class AdminController extends BaseController {
 			}
 		$month_list = [];
 		foreach ($month_plans as $key => $value) {
-			array_push($month_list, array("id"=>$key, "value"=>$value)); 
+			array_push($month_list, array("id"=>$value, "value"=>$value)); 
 		}
 		$data['success'] = 'true';
 		$data['message'] = $final_list;
@@ -53,6 +55,20 @@ class AdminController extends BaseController {
 		$data['message'] = $fees;
 		$data['total'] = $total;
 		return json_encode($data);
+	}
+	public function calDate(){
+		$dob = (Input::get('dos'));
+		return $dob;
+		if(Input::has('mplan')){
+			$dos = strtotime('+'.Input::get('mplan').' month',$dos);
+		}
+		if(Input::has('adjust')){
+			$dos = strtotime('+'.Input::get('adjust').' days',$dos);
+		}
+		$dos = $dos - 86400;
+		$data['success'] = 'true';
+		$data['message'] = date("d-m-Y", $dos);
+		return  json_encode($data);
 	}
 }
 ?>

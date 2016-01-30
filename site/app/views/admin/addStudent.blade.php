@@ -148,7 +148,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							{{Form::label('Month Plan')}}
-							{{Form::select('month_plan',[],'',["class"=>"form-control","id"=>"month_plan"])}}
+							{{Form::select('month_plan',[],'',["class"=>"form-control","id"=>"mplan"])}}
 							<span class="error">{{$errors->first('city')}}</span>
 						</div>
 						<div class="clearx"></div>
@@ -160,13 +160,13 @@
 						<div class="clearx"></div>
 						<div class="col-md-12">
 							{{Form::label('Subscription Fee')}}
-							{{Form::text('sub_fee',0,["class"=>"form-control m-wrap","id"=>'sub-fee'])}}
+							{{Form::text('sub_fee',0,["class"=>"form-control m-wrap","id"=>'sub_fee'])}}
 							<span class="error">{{$errors->first('sub_fee')}}</span>
 						</div>
 						<div class="clearx"></div>
 						<div class="col-md-12">
 							{{Form::label('Kit Fee')}}
-							{{Form::text('kit_fee',0,["class"=>"form-control m-wrap","id"=>'kit-fee'])}}
+							{{Form::text('kit_fee',0,["class"=>"form-control m-wrap","id"=>'kit_fee'])}}
 							<span class="error">{{$errors->first('kit_fee')}}</span>
 						</div>
 						<div class="clearx"></div>
@@ -198,7 +198,7 @@
 						</div>
 						<div class="col-md-12">
 							{{Form::label('Subscription End')}}
-							{{Form::text('sub_end','',["class"=>"form-control"])}}
+							{{Form::text('sub_end','',["class"=>"form-control","id"=>"sub_end"])}}
 							<span class="error">{{$errors->first('sub_end')}}</span>
 						</div>
 						<div class="clearx"></div>

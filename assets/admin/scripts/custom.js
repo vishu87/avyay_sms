@@ -252,7 +252,7 @@ $(document).on("change","#centerId",function(e){
 	    			str2 += '<option value="'+plans[i].id+'">'+plans[i].value+' month</option>';
 	    		};
 	    		$('#groupId').html(str);
-				$('#month_plan').html(str2);
+				$('#mplan').html(str2);
 			}
 			else{
 				bootbox.alert(data.message);
@@ -261,10 +261,10 @@ $(document).on("change","#centerId",function(e){
 	},"json");
 
 });
-$(document).on("change","#month_plan",function(e){
+$(document).on("change","#mplan",function(e){
 	e.preventDefault();
 	// alert("working");
-	var datatosend = $("#month_plan").serialize();
+	var datatosend = $("#mplan").serialize();
 	$.ajax({
 		type:"post",
 		url:base_url+'/admin/student/getFee',
@@ -273,8 +273,8 @@ $(document).on("change","#month_plan",function(e){
 			data = JSON.parse(data);
 			if(data.success=='true'){
 				$('#reg_fee').val(data.message.reg_fee);
-				$('#sub-fee').val(data.message.sub_fee);
-				$('#kit-fee').val(data.message.kit_fee);
+				$('#sub_fee').val(data.message.sub_fee);
+				$('#kit_fee').val(data.message.kit_fee);
 				$('#amount').val(data.total);
 			}
 			else{
@@ -284,3 +284,46 @@ $(document).on("change","#month_plan",function(e){
 	},"json");
 
 });
+$("#reg_fee").keyup(function(){
+    value = parseInt($("#reg_fee").val())+parseInt($("#sub_fee").val())+parseInt($("#kit_fee").val());
+    $("#amount").val(value);
+
+});
+
+$("#sub_fee").keyup(function(){
+  value = parseInt($("#reg_fee").val())+parseInt($("#sub_fee").val())+parseInt($("#kit_fee").val());
+  $("#amount").val(value);
+
+});
+
+$("#kit_fee").keyup(function(){
+  value = parseInt($("#reg_fee").val())+parseInt($("#sub_fee").val())+parseInt($("#kit_fee").val());
+  $("#amount").val(value);
+
+});
+
+$(document).on("click","#calculate",function(e){
+	e.preventDefault();
+	// alert("working");
+	var dos= $("#dos").val();
+	var mplan=$("#mplan").val();
+	var adjust=$("#adjust").val();
+	var datatosend = "dos="+dos;
+	datatosend += "$amp;mplan="+mplan;
+	datatosend += "$amp;adjust="+adjust;
+	alert(datatosend);
+	$.ajax({
+		type:"post",
+		url:base_url+'/admin/student/calDate',
+		data:datatosend,
+		success : function(data){
+			data = JSON.parse(data);
+			if(data.success=='true'){
+				$("#sub_end").val(data);
+			}
+			else{
+				bootbox.alert(data.message);
+			}
+		}
+	},"json");
+  });

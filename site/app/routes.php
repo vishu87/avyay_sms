@@ -30,6 +30,7 @@ Route::group(array("prefix"=>'admin',"before"=>'auth'),function(){
 		Route::post('/getCenter','AdminController@getCenter');
 		Route::post('/getGroup','AdminController@getGroup');
 		Route::post('/getFee','AdminController@getFee');
+		Route::post('/calDate','AdminController@calDate');
 	});
 	Route::group(array("prefix"=>'manage',"before"=>'auth'),function(){
 		Route::get('/','AdminManageController@index');
@@ -41,6 +42,7 @@ Route::group(array("prefix"=>'admin',"before"=>'auth'),function(){
 			Route::get('/editCity/{id}','AdminManageController@editCity');
 			Route::put('/update/{id}','AdminManageController@updateCity');
 		});
+
 		Route::group(array("prefix"=>'centers',"before"=>'auth'),function(){
 			Route::get('/','AdminManageController@indexCenters');
 		});
