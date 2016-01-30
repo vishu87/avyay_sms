@@ -74,5 +74,7 @@ class AdminManageController extends BaseController {
 		return json_encode($data);
 	}
 	/********* functions For City  starts*********/
-
+	public function myfnc(){
+		return "dfajsdklafjdsljaljds";
+	}
 }
