@@ -18,6 +18,7 @@
 			<tr>
 				<th style="width:50px">SN</th>
 				<th>Center Name</th>
+				<th>City Name</th>
 				<th>#</th>
 			</tr>
 		</thead>

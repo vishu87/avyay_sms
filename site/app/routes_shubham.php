@@ -31,14 +31,5 @@ Route::group(array("prefix"=>'admin',"before"=>'auth'),function(){
 			Route::get('/edit/{id}','AdminManageController@editGroup');
 			Route::put('/update/{id}','AdminManageController@updateGroup');
 		});
-
-		Route::group(array("prefix"=>'centers',"before"=>'auth'),function(){
-			Route::get('/','AdminManageController@indexCenter');
-		});
-		Route::group(array("prefix"=>'members',"before"=>'auth'),function(){
-			Route::get('/','AdminManageController@indexMembers');
-		});
-	
-
 	});
 });
