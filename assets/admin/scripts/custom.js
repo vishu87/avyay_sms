@@ -319,7 +319,7 @@ $(document).on("click","#calculate",function(e){
 		success : function(data){
 			data = JSON.parse(data);
 			if(data.success){
-				$("#sub_end").val(data);
+				$("#sub_end").val(data.message);
 			}
 			else{
 				bootbox.alert(data.message);

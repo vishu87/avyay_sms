@@ -24,13 +24,15 @@ Route::get('/logout', function(){
 
 Route::group(array("prefix"=>'admin',"before"=>'auth'),function(){
 	Route::get('/','AdminController@index');
+	
 	Route::group(array("prefix"=>'student',"before"=>'auth'),function(){
-		Route::get('/','AdminController@addStudent');
-		Route::post('/store','AdminController@storeStudent');
-		Route::post('/getCenter','AdminController@getCenter');
-		Route::post('/getGroup','AdminController@getGroup');
-		Route::post('/getFee','AdminController@getFee');
-		Route::post('/calDate','AdminController@calDate');
+		Route::get('/','StudentController@addStudent');
+		Route::post('/store','StudentController@storeStudent');
+		Route::post('/getCenter','StudentController@getCenter');
+		Route::post('/getGroup','StudentController@getGroup');
+		Route::post('/getFee','StudentController@getFee');
+		Route::post('/calDate','StudentController@calDate');
+		Route::get('/viewAllStudent','StudentController@viewAllStudent');
 	});
 
 });

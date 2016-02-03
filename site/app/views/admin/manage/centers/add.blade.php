@@ -24,10 +24,10 @@
 					<span class="error">{{$errors->first('cheque')}}</span>
 				</div>
 			</div>
-			
 		<!---my form end-->
 	</div>
 	<div class="form-actions" style="margin-top:40px;">
 		<button type="submit" class="btn blue">{{(isset($center))?'Update':'Add'}}</button>
 	</div>
 {{Form::close()}}
+09223011311

@@ -21,17 +21,17 @@
           </a>
           <ul class="sub-menu">
             <li class="@if($page_id == 2 && $sub_id == 1 ) active @endif">
-              <a href="{{url('/teacher/newMeeting')}}">
+              <a href="{{url('/admin/student/viewAllStudent')}}">
               <i class="fa fa-user"></i>
               View All</a>
             </li>
             <li class="@if($page_id == 2 && $sub_id == 2 ) active @endif">
-              <a href="{{url('teacher/viewMeetingInvites')}}">
+              <a href="{{url('admin/student/viewBangloreStudent')}}">
               <i class="fa fa-group"></i>
               Banglore</a>
             </li>
             <li <?php if($sub_id ==3 && $page_id==2): ?> class="active" <?php endif; ?> >
-              <a href="{{url('/teacher/allMeetings')}}">
+              <a href="{{url('/admin/student/viewBFCAcademyStudent')}}">
               <i class="icon-home"></i>
               BFC Academy</a>
             </li>
