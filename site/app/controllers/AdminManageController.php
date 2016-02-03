@@ -76,7 +76,7 @@ class AdminManageController extends BaseController {
 	/********* functions For Centers  starts*********/
 	
 	public function indexCenter(){
-		$centers = Center::get();
+		$centers = DB::table('center')->join('city','center.city_id','=','city.id')->select('center.center_name','city.city_name','center.id')->get();
 		$this->layout->tab_id = 3;
 		$this->layout->sidebar = View::make('admin.manage.sidebar',["page_id"=>2]);
  		$this->layout->main = View::make('admin.manage.centers.list',["centers"=>$centers]);
@@ -96,9 +96,14 @@ class AdminManageController extends BaseController {
 			$center->city_id = Input::get('city_id');
 			$center->paid_to = Input::get('cheque');
 			$center->save();
+			$center_info=Center::select('center.center_name','city.city_name','center.id')
+								->join('city','center.city_id','=','city.id')
+								->where('center.id','=',$center->id)
+								->first();
+			
 			$count = Center::count();
 			$data['success'] = 'true';
-			$data['message'] = html_entity_decode(View::make('admin.manage.centers.view',["data"=>$center_data,"count"=>$count]));
+			$data['message'] = html_entity_decode(View::make('admin.manage.centers.view',["data"=>$center_info,"count"=>$count]));
 		}
 		else{
 			$data["success"] = false;
@@ -143,7 +148,10 @@ class AdminManageController extends BaseController {
 	/*------function for groups starts--------*/
 
 	public function indexGroup(){
-		$groups = Group::get();
+		$groups = Group::select('center.center_name','groups.group_name','city.city_name','groups.id')
+						->join('center','groups.center_id','=','center.id')
+						->join('city','center.city_id','=','city.id')
+						->get();
 		$this->layout->tab_id = 3;
 		$this->layout->sidebar = View::make('admin.manage.sidebar',["page_id"=>3]);
  		$this->layout->main = View::make('admin.manage.groups.list',["groups"=>$groups]);
@@ -162,14 +170,26 @@ class AdminManageController extends BaseController {
 			$group->group_name = Input::get('group');
 			$group->center_id = Input::get('center_id');
 			$group->save();
+			$group_info=Group::select('center.center_name','groups.group_name','city.city_name','groups.id')
+								->join('center','groups.center_id','=','center.id')
+								->join('city','center.city_id','=','city.id')
+								->where('groups.id','=',$group->id)
+								->first();
+			
 			$count = Group::count();
 			$data['success'] = 'true';
-			$data['message'] = html_entity_decode(View::make('admin.manage.groups.view',["data"=>$group,"count"=>$count]));
+			$data['message'] = html_entity_decode(View::make('admin.manage.groups.view',["data"=>$group_info,"count"=>$count]));
 		}
 		else{
 			$data["success"] = false;
 			$data["message"] = "All fields are not filled";
 		}
+		return json_encode($data);
+	}
+	public function deleteGroup($id){
+		$delete = Group::find($id)->delete();
+		$data["success"] = true;
+		$data["message"] = "Suffefasdafsdga";
 		return json_encode($data);
 	}
 }

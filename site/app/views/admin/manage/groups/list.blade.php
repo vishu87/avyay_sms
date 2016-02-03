@@ -18,6 +18,8 @@
 			<tr>
 				<th style="width:50px">SN</th>
 				<th>Group Name</th>
+				<th>Center Name</th>
+				<th>City Name</th>
 				<th>#</th>
 			</tr>
 		</thead>
@@ -27,6 +29,7 @@
 				@include('admin.manage.groups.view')
 				<?php $count++ ?>
 			@endforeach
+			
 		</tbody>
 	</table>
 </div>

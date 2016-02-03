@@ -1,6 +1,7 @@
 <tr id="center_{{$data->id}}">
 	<td>{{$count}}</td>
 	<td>{{$data->center_name}}</td>
+	<td>{{$data->city_name}}</td>
 	<td>
 		<button type="button" class="btn yellow edit-div" div-id="center_{{$data->id}}"  modal-title="{{$data->center_name}}" action="{{'admin/manage/centers/edit/'.$data->id}}" count = "{{$count}}"> <i class="fa fa-edit"></i> Edit</button>
 
