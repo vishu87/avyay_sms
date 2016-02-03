@@ -30,10 +30,9 @@ class AdminManageController extends BaseController {
 			$city = new City;
 			$city->city_name = Input::get('city');
 			$city->save();
-			$city_data = City::where('id','=',$city->id)->first();
 			$count = City::count();
 			$data['success'] = 'true';
-			$data['message'] = html_entity_decode(View::make('admin.manage.cities.view',["data"=>$city_data,"count"=>$count]));
+			$data['message'] = html_entity_decode(View::make('admin.manage.cities.view',["data"=>$city,"count"=>$count]));
 		}
 		else{
 			$data["success"] = false;
@@ -81,11 +80,10 @@ class AdminManageController extends BaseController {
 		$this->layout->tab_id = 3;
 		$this->layout->sidebar = View::make('admin.manage.sidebar',["page_id"=>2]);
  		$this->layout->main = View::make('admin.manage.centers.list',["centers"=>$centers]);
-
 	}
 	public function addCenter(){
 		$cities = [""=>"select"] + City::get_city_array();
-		return View::make('admin.manage.centers.add',["city"=>$cities]);
+		return View::make('admin.manage.centers.add',["cities"=>$cities]);
 	}
 	public function insertCenter(){
 		$cre = ["center"=>Input::get('center')];
@@ -95,8 +93,9 @@ class AdminManageController extends BaseController {
 		if($validator->passes()){
 			$center = new Center;
 			$center->center_name = Input::get('center');
+			$center->city_id = Input::get('city_id');
+			$center->paid_to = Input::get('cheque');
 			$center->save();
-			$center_data = Center::where('id','=',$center->id)->first();
 			$count = Center::count();
 			$data['success'] = 'true';
 			$data['message'] = html_entity_decode(View::make('admin.manage.centers.view',["data"=>$center_data,"count"=>$count]));
@@ -113,21 +112,21 @@ class AdminManageController extends BaseController {
 		$data["message"] = "";
 		return json_encode($data);
 	}
-	public function editCenter($id){
-		$center = Center::find($id);
+	public function editCenter($center_id){
+		$center = Center::find($center_id);
 		$cities = [""=>"select"] + City::get_city_array();
-		$count = Input::get('count');
-		return (View::make('admin.manage.centers.add',["center"=>$center,"count"=>$count]));
-		
+		return html_entity_decode(View::make('admin.manage.centers.add',["center"=>$center, "cities" =>$cities]));	
 	}
-	public function updateCenter($id){
+	public function updateCenter($center_id){
 		$cre = ["center"=>Input::get('center')];
 		$rules = ["center"=>'required'];
 
 		$validator = Validator::make($cre,$rules);
 		if($validator->passes()){
-			$center = Center::find($id);
+			$center = Center::find($center_id);
 			$center->center_name = Input::get('center');
+			$center->city_id = Input::get('city_id');
+			$center->paid_to = Input::get('cheque');
 			$center->save();
 			$count = Input::get('count');
 			$data["success"] = true;
@@ -141,7 +140,36 @@ class AdminManageController extends BaseController {
 		return json_encode($data);
 	}
 
+	/*------function for groups starts--------*/
 
-	/********* functions For City  starts*********/
-	
+	public function indexGroup(){
+		$groups = Group::get();
+		$this->layout->tab_id = 3;
+		$this->layout->sidebar = View::make('admin.manage.sidebar',["page_id"=>3]);
+ 		$this->layout->main = View::make('admin.manage.groups.list',["groups"=>$groups]);
+	}
+	public function addGroup(){
+		$centers = [""=>"select"] + Center::get_center_array();
+		return View::make('admin.manage.groups.add',["centers"=>$centers]);	
+	}
+	public function insertGroup(){
+		$cre = ["group"=>Input::get('group')];
+		$rules = ["group"=>'required'];
+
+		$validator = Validator::make($cre,$rules);
+		if($validator->passes()){
+			$group = new Group;
+			$group->group_name = Input::get('group');
+			$group->center_id = Input::get('center_id');
+			$group->save();
+			$count = Group::count();
+			$data['success'] = 'true';
+			$data['message'] = html_entity_decode(View::make('admin.manage.groups.view',["data"=>$group,"count"=>$count]));
+		}
+		else{
+			$data["success"] = false;
+			$data["message"] = "All fields are not filled";
+		}
+		return json_encode($data);
+	}
 }

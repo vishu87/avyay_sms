@@ -1,9 +1,9 @@
 <div class="row">
 	<div class="col-md-8">
-		<h3 class="page-title">Centers</h3>
+		<h3 class="page-title">Groups</h3>
 	</div>
 	<div class="col-md-4">
-		<button type="button" class="btn green add-div pull-right" div-id="centers"  modal-title="Add Center" action="{{'admin/manage/centers/add'}}"> <i class="fa fa-plus"></i> Add New Center</button>
+		<button type="button" class="btn green add-div pull-right" div-id="areas"  modal-title="Add Group" action="{{'admin/manage/groups/add'}}"> <i class="fa fa-plus"></i> Add New Group</button>
 	</div>
 </div>
 @if(Session::has('success'))
@@ -17,14 +17,14 @@
 		<thead>
 			<tr>
 				<th style="width:50px">SN</th>
-				<th>Center Name</th>
+				<th>Group Name</th>
 				<th>#</th>
 			</tr>
 		</thead>
-		<tbody id="centers">
+		<tbody id="areas">
 			<?php $count = 1; ?>
-			@foreach($centers as $data)
-				@include('admin.manage.centers.view')
+			@foreach($groups as $data)
+				@include('admin.manage.groups.view')
 				<?php $count++ ?>
 			@endforeach
 		</tbody>
