@@ -14,7 +14,7 @@ class StudentController extends BaseController {
 
     public function storeStudent(){
       $cre =[
-            "group"=>Input::get('group'),
+            "first_group"=>Input::get('first_group'),
             "name"=>Input::get('name'),
             "dob"=>Input::get('dob'),
             "gender"=>Input::get('gender'),
@@ -25,7 +25,7 @@ class StudentController extends BaseController {
             "subscription_start"=>Input::get('subscription_start'),
             ];
       $rules =[
-            "group"=>'required',
+            "first_group"=>'required',
             "name"=>'required',
             "dob"=>'required',
             "gender"=>'required',
@@ -93,18 +93,18 @@ class StudentController extends BaseController {
          $payment->added_by = Auth::User()->id;
          $payment->payment_mode = Input::get('payment_mode');
          $payment->save();
-
+         return Redirect::Back()->with('success','New Student Added Successfully');
          
       }  
-      else{
-         $data['success'] = 'true';
-         $data['message'] ="All Marked Fields Are Mandatory..";
-      }       
-      return json_encode($data);
+             
+      return Redirect::Back()->withErrors($validator)->withInput();
    }
 
     public function viewAllStudent(){
-        $students = Student::select('students.*','students_details')
+        $students = Student_Details::select('students.id','students.name','students_details.*')
+                    ->join('students','students_details.student_id','=','students.id')
+                    ->where();
+
     }
     public function getCenter(){
         $id = Input::get('city');

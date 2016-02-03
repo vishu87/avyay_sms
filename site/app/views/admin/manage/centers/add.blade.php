@@ -13,14 +13,14 @@
 				</div>
 				<div class="col-md-6">
 					{{Form::label('City')}}
-					{{Form::select('city',$city,'',["class"=>"form-control","id"=>"CityId"])}}
-					<span class="error">{{$errors->first('city')}}</span>
+					{{Form::select('city_id',$cities,(isset($center))?$center->city_id:'',["class"=>"form-control","id"=>"CityId"])}}
+					<span class="error">{{$errors->first('city_id')}}</span>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6 cheque-paid">
 					{{Form::label('Cheque to be paid to')}}
-					{{Form::text('cheque','',["class"=>"form-control","required"=>"true"])}}
+					{{Form::text('cheque',(isset($center))?$center->paid_to:'',["class"=>"form-control","required"=>"true"])}}
 					<span class="error">{{$errors->first('cheque')}}</span>
 				</div>
 			</div>

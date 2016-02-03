@@ -23,14 +23,20 @@ Route::group(array("prefix"=>'admin',"before"=>'auth'),function(){
 			Route::put('/update/{id}','AdminManageController@updateCenter');
 		});
 		
+		Route::group(array("prefix"=>'groups',"before"=>'auth'),function(){
+			Route::get('/','AdminManageController@indexGroup');
+			Route::get('/add','AdminManageController@addGroup');
+			Route::post('/insert','AdminManageController@insertGroup');
+			Route::delete('/delete/{id}','AdminManageController@deleteGroup');
+			Route::get('/edit/{id}','AdminManageController@editGroup');
+			Route::put('/update/{id}','AdminManageController@updateGroup');
+		});
+
 		Route::group(array("prefix"=>'centers',"before"=>'auth'),function(){
 			Route::get('/','AdminManageController@indexCenter');
 		});
 		Route::group(array("prefix"=>'members',"before"=>'auth'),function(){
 			Route::get('/','AdminManageController@indexMembers');
-		});
-		Route::group(array("prefix"=>'groups',"before"=>'auth'),function(){
-			Route::get('/','AdminManageController@indexGroups');
 		});
 	
 

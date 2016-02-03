@@ -1,4 +1,10 @@
-{{Form::open(["url"=>"admin/student/store","method"=>"post","class"=>"ajax_add_pop"])}}
+@if(Session::has('success'))
+	<div class="alert alert-success alert-dismissable">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+		{{Session::get('success')}}
+	</div>
+@endif
+{{Form::open(["url"=>"admin/student/store","method"=>"post","class"=>""])}}
 <div class="row">
 	<div class="col-md-12">
 		<h1>Add New Student</h1>
