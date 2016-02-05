@@ -5,6 +5,7 @@ Route::group(array("prefix"=>'admin',"before"=>'auth'),function(){
 	Route::group(array("prefix"=>'manage',"before"=>'auth'),function(){
 
 		Route::get('/','AdminManageController@index');
+
 		Route::group(array("prefix"=>'cities',"before"=>'auth'),function(){
 			Route::get('/','AdminManageController@indexCity');
 			Route::get('/add','AdminManageController@addCity');
@@ -30,6 +31,15 @@ Route::group(array("prefix"=>'admin',"before"=>'auth'),function(){
 			Route::delete('/deleteGroup/{id}','AdminManageController@deleteGroup');
 			Route::get('/edit/{id}','AdminManageController@editGroup');
 			Route::put('/update/{id}','AdminManageController@updateGroup');
+		});
+
+		Route::group(array("prefix"=>'members',"before"=>'auth'),function(){
+			Route::get('/','AdminManageController@indexMember');
+			Route::get('/add','AdminManageController@addMember');
+			Route::post('/insert','AdminManageController@insertMember');
+			Route::delete('/delete/{id}','AdminManageController@deleteMember');
+			Route::get('/edit/{id}','AdminManageController@editMember');
+			Route::put('/update/{id}','AdminManageController@updateMember');
 		});
 	});
 });

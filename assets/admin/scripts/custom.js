@@ -327,3 +327,6 @@ $(document).on("click","#calculate",function(e){
 		}
 	},"json");
   });
+ function initialize(){
+ 	
+ }
