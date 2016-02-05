@@ -1,7 +1,7 @@
 @if(isset($group))
 {{Form::open(array("url"=>'admin/manage/groups/update/'.$group->id,"method"=>'PUT',"class"=>"ajax_edit_pop"))}}
 @else
-{{Form::open(array("url"=>'admin/manage/groups/insert/',"method"=>'post',"class"=>"ajax_add_pop"))}}
+{{Form::open(array("url"=>'admin/manage/groups/insert',"method"=>'post',"class"=>"ajax_add_pop"))}}
 @endif
 	<div class="form-body">
 		<!--- my form start -->
