@@ -80,7 +80,7 @@
 						<div class="clearx"></div>
 						<div class="col-md-12">
 							{{Form::label("Father's Name")}}
-							{{Form::text('father','',["class"=>"form-control m-wrap"])}}
+							{{Form::text('father_name','',["class"=>"form-control m-wrap"])}}
 							<span class="error">{{$errors->first('father')}}</span>
 						</div>
 						<div class="clearx"></div>

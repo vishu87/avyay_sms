@@ -25,16 +25,37 @@
               <i class="fa fa-user"></i>
               View All</a>
             </li>
-            <li class="@if($page_id == 2 && $sub_id == 2 ) active @endif">
-              <a href="{{url('admin/student/viewBangloreStudent')}}">
-              <i class="fa fa-group"></i>
-              Banglore</a>
-            </li>
-            <li <?php if($sub_id ==3 && $page_id==2): ?> class="active" <?php endif; ?> >
-              <a href="{{url('/admin/student/viewBFCAcademyStudent')}}">
-              <i class="icon-home"></i>
-              BFC Academy</a>
-            </li>
+            @if(isset($customSidebar))
+              <?php $cn = 0;?>
+              @foreach($customSidebar as $value)
+                @if($cn!==$value->cityId)
+                  <li class="@if($page_id == 2 && $sub_id == 2 ) active @endif">
+                    <a href="javascript:;" class="">
+                    <i class="fa fa-group"></i>
+                    {{$value->city_name}}
+                      <?php $cn = $value->cityId;?></a>
+                  
+                    <ul class="sub-menu">
+                          <li class="@if($page_id == 2 && $sub_id == 2 ) active @endif">
+                            <a href="javascript:;" class="">
+                            <i class="fa fa-group"></i>
+                            {{$value->center_name}}</a>
+                            <ul class="sub-menu">
+                              
+                                  <li class="@if($page_id == 2 && $sub_id == 2 ) active @endif">
+                                    <a href="javascript:;" class="">
+                                    <i class="fa fa-group"></i>
+                                    {{$value->group_name}}
+                                    </a>
+                                  </li>
+                                
+                            </ul>
+                          </li>
+                    </ul>
+                  </li>
+                @endif  
+              @endforeach  
+            @endif
           </ul>
         </li>
         <li <?php if($page_id==3): ?>class="active open "<?php endif;?>>

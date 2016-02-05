@@ -1,7 +1,7 @@
 <?php
 
 
-class Student_Details extends Eloquent  {
+class StudentDetails extends Eloquent  {
 
 	protected $table = 'students_details';
 

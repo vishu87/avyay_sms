@@ -27,7 +27,7 @@ Route::group(array("prefix"=>'admin',"before"=>'auth'),function(){
 			Route::get('/','AdminManageController@indexGroup');
 			Route::get('/add','AdminManageController@addGroup');
 			Route::post('/insert','AdminManageController@insertGroup');
-			Route::delete('/delete/{id}','AdminManageController@deleteGroup');
+			Route::delete('/deleteGroup/{id}','AdminManageController@deleteGroup');
 			Route::get('/edit/{id}','AdminManageController@editGroup');
 			Route::put('/update/{id}','AdminManageController@updateGroup');
 		});

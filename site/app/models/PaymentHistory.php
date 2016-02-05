@@ -1,7 +1,7 @@
 <?php
 
 
-class Payment_History extends Eloquent  {
+class PaymentHistory extends Eloquent  {
 
 	protected $table = 'payment_history';
 

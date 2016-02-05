@@ -15,25 +15,27 @@ class StudentController extends BaseController {
     public function storeStudent(){
       $cre =[
             "first_group"=>Input::get('first_group'),
-            "name"=>Input::get('name'),
-            "dob"=>Input::get('dob'),
-            "gender"=>Input::get('gender'),
-            "father_name"=>Input::get('father_name'),
-            "month_plan"=>Input::get('month_plan'),
-            "date_payment"=>Input::get('date_payment'),
-            "sub_end"=>Input::get('sub_end'),
-            "subscription_start"=>Input::get('subscription_start'),
+            'name'=>Input::get('name'),
+            'dob'=>Input::get('dob'),
+            'gender'=>Input::get('gender'),
+            'father_name'=>Input::get('father_name'),
+            'month_plan'=>Input::get('month_plan'),
+            'dor'=>Input::get('dor'),
+            'doe'=>Input::get('doe'),
+            'dos'=>Input::get('dos')
+            
             ];
       $rules =[
             "first_group"=>'required',
-            "name"=>'required',
-            "dob"=>'required',
-            "gender"=>'required',
-            "father_name"=>'required',
-            "month_plan"=>'required',
-            "date_payment"=>'required',
-            "sub_end"=>'required',
-            "subscription_start"=>'required'
+            'name'=>'required',
+            'dob'=>'required',
+            'gender'=>'required',
+            'father_name'=>'required',
+            'month_plan'=>'required',
+            'dor'=>'required',
+            'doe'=>'required',
+            'dos'=>'required'
+            
             ]; 
       $validator = Validator::make($cre,$rules);
       if($validator->passes()){
@@ -41,17 +43,22 @@ class StudentController extends BaseController {
          $student->name = Input::get('name');
          $student->dob = Input::get('dob');
          $student->gender = Input::get('gender');
-         $student->email = Input::get('email');
-         $student->school = Input::get('school');
-         $student->mobile = Input::get('mobile');
+         $student->first_group = Input::get('first_group');
+         
+         $student->dos = Input::get('dos');
+         $student->doe = Input::get('doe');
+         
+         $student->added_by = Auth::User()->id;
+         $student->add_date = strtotime("now");
+         
          $student->save();
-         $student_details = new Student_Details;
-         $student_details->student_id =$studnet->id;
+         $student_details = new StudentDetails;
+         $student_details->student_id =$student->id;
          $student_details->school = Input::get('school_name');
          $student_details->status_email = Input::get('status_email');
          $student_details->status_mob = Input::get('status_mob');
-         $student_details->first_group = Input::get('first_group');
-         $student_details->father = Input::get('father');
+         
+         $student_details->father = Input::get('father_name');
          $student_details->mother = Input::get('mother');
          $student_details->father_mob = Input::get('father_mob');
          $student_details->father_email = Input::get('father_email');
@@ -60,23 +67,20 @@ class StudentController extends BaseController {
          $student_details->address = Input::get('address');
          $student_details->city = Input::get('city');
          $student_details->state = Input::get('state');
-         $student_details->dos = Input::get('dos');
-         $student_details->doe = Input::get('doe');
+         
          if(Input::hasFile('picture')){
             $picture=Input::file('picture');
             $filename=Input::file('picture')->getClientOriginalName();
             Input::file('picture')->move('uploads/','st_'.$filename);
             $student_details->pic = 'st_'.$filename;
          }
-         $student_details->add_date = strtotime("now");
-         $student_details->added_by = Auth::User()->id;
          $student_details->father_status_email = Input::get('father_status_email');
          $student_details->father_status_mob = Input::get('father_status_mob');
          $student_details->mother_status_mob = Input::get('mother_status_mob');
          $student_details->mother_status_email = Input::get('mother_status_email');
          $student_details->save();
 
-         $payment = new Payment_History;
+         $payment = new PaymentHistory;
          $payment->student_id = $student->id;
          $payment->dos = Input::get('dos');
          $payment->dor = Input::get('dor');
@@ -90,20 +94,28 @@ class StudentController extends BaseController {
          $payment->p_remark = Input::get('p_remark');
          $payment->a_remark = Input::get('a_remark');
          $payment->date = strtotime("now");
-         $payment->added_by = Auth::User()->id;
+         
          $payment->payment_mode = Input::get('payment_mode');
          $payment->save();
          return Redirect::Back()->with('success','New Student Added Successfully');
          
       }  
              
-      return Redirect::Back()->withErrors($validator)->withInput();
+      return "error";
    }
 
     public function viewAllStudent(){
-        $students = Student_Details::select('students.id','students.name','students_details.*')
-                    ->join('students','students_details.student_id','=','students.id')
-                    ->where();
+        $students = Student::select('center.center_name','students.id','students.name','students_details.city as city_name','groups.group_name','students_details.school','students.doe','students_details.father','students.dob')
+            ->join('students_details','students.id','=','students_details.student_id')
+            ->join('groups','students.first_group','=','groups.id')
+            ->join('center','groups.center_id','=','center.id')
+            ->join('city','center.city_id','=','city.id')
+            ->get();
+        $custom_sidebar = Group::group_center_city();    
+        // return $custom_sidebar->city;
+        $this->layout->tab_id = 1;
+        $this->layout->sidebar = View::make('admin.sidebar',["page_id"=>2,"sub_id"=>1,"customSidebar"=>$custom_sidebar]);   
+        $this->layout->main = View::make('admin.browseStudent.view',["students"=>$students]);   
 
     }
     public function getCenter(){
@@ -157,7 +169,7 @@ class StudentController extends BaseController {
         $dos = $dos - 86400;
 
         $data['success'] = true;
-        $data['message'] = date("d-m-Y", $dos);
+        $data['message'] = date("d-m-Y", $dos); 
         return  json_encode($data);
     }
 }
