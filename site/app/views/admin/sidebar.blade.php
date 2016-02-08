@@ -26,35 +26,39 @@
               View All</a>
             </li>
             @if(isset($customSidebar))
-              <?php $cn = 0;?>
-              @foreach($customSidebar as $value)
-                @if($cn!==$value->cityId)
-                  <li class="@if($page_id == 2 && $sub_id == 2 ) active @endif">
-                    <a href="javascript:;" class="">
-                    <i class="fa fa-group"></i>
-                    {{$value->city_name}}
-                      <?php $cn = $value->cityId;?></a>
-                  
-                    <ul class="sub-menu">
-                          <li class="@if($page_id == 2 && $sub_id == 2 ) active @endif">
+              <?php $old_center_id = 0; $old_city_id=0; $count = 0; $count_center =0; $count_group = 0;?>
+                @foreach($customSidebar as $group)
+
+                  @if($old_city_id != $group->city_id)
+                    @if($count != 0) </ul></li> <?php $count_center = 0 ?> @endif
+                    <li <?php if($page_id==2): ?>class=" open  "<?php endif;?>>
+                        <a href="javascript:;">
+                          <i class="fa fa-group"></i>
+                          {{$group->city_name}}
+                        </a>
+                      <ul class="sub-menu">
+                  @endif
+                   @if($old_center_id != $group->center_id)
+                    @if($count_group != 0) </ul></li> <?php $count_group = 0 ?> @endif
+                      <li <?php if($page_id==2): ?>class=" open "<?php endif;?>>
+                        <a href="javascript:;">
+                          <i class="fa fa-group"></i>
+                          {{$group->center_name}}
+                        </a>
+                        <ul class="sub-menu">
+                    @endif
+                           <li <?php if($page_id==2): ?>class=" "<?php endif;?>>
                             <a href="javascript:;" class="">
-                            <i class="fa fa-group"></i>
-                            {{$value->center_name}}</a>
-                            <ul class="sub-menu">
-                              
-                                  <li class="@if($page_id == 2 && $sub_id == 2 ) active @endif">
-                                    <a href="javascript:;" class="">
-                                    <i class="fa fa-group"></i>
-                                    {{$value->group_name}}
-                                    </a>
-                                  </li>
-                                
-                            </ul>
+                              <i class="fa fa-group"></i>
+                              {{$group->group_name}}
+                            </a>
                           </li>
-                    </ul>
-                  </li>
-                @endif  
-              @endforeach  
+                 <?php $count++; $old_city_id = $group->city_id; $count_center++;$count_group++; $old_center_id = $group->center_id  ?>
+                @endforeach
+                        </ul>
+                      </li>
+                    </ul> <!--center li-->
+                </li> <!--city li-->
             @endif
           </ul>
         </li>
